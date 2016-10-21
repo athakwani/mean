@@ -10,7 +10,10 @@
   [
     "NODE_ENV=development",
     "PORT=3000",
-    "DISPLAY=:99.0"
+    "DISPLAY=:99.0",
+    "NODE_ENV=travis",
+    "CXX=g++-4.8",
+    "CC=gcc-4.8"
   ],
   dependencies: 
   [
@@ -18,7 +21,7 @@
       name: "linux-dependencies",
       cmd:
       '''
-        apt-get -y install curl wget libfontconfig g++-4.8 gcc-4.8 clang
+        apt-get -y install curl wget libfontconfig g++-4.8 gcc-4.8 clang ruby-full
         curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
         apt-get -y install mongodb nodejs daemon
       '''
