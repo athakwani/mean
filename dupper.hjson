@@ -21,9 +21,11 @@
       name: "linux-dependencies",
       cmd:
       '''
-        apt-get -y install curl wget libfontconfig g++-4.8 gcc-4.8 clang ruby-full
+        apt-get -y install curl wget libfontconfig g++-4.8 gcc-4.8 clang ruby-full xvfb default-jre chromium-browser
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
         curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-        apt-get -y install mongodb nodejs daemon
+        sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+        apt-get -y install mongodb nodejs daemon google-chrome-stable
       '''
     },
     {
@@ -181,11 +183,10 @@
     test: [{
         server:
         '''
-            sh -e /etc/init.d/xvfb start
-            node_modules/protractor/bin/webdriver-manager update --standalone --firefox
-            node_modules/protractor/bin/webdriver-manager start 2>&1 &
-            nsp audit-package
-            grunt coverage
+            Xvfb :99 -ac -screen 0 1024x768x24 &
+            service mongodb start
+            npm run test:server
+            npm run test:client
         '''
     }],    
     c9: [{
