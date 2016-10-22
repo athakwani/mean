@@ -22,4 +22,3 @@ script:
 after_success:
 - docker tag mean:$TRAVIS_COMMIT dupper/mean:$TRAVIS_BRANCH
 - docker push dupper/mean:$TRAVIS_BRANCH
-
