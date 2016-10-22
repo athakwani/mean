@@ -183,7 +183,7 @@
     test: [{
         server:
         '''
-            Xvfb :99 -ac -screen 0 1024x768x24 &
+            set -e
             service mongodb start
             npm run test:server
             npm run test:client
